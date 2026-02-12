@@ -51,10 +51,11 @@ export default function Auth() {
         try {
             await signInWithPopup(auth, googleProvider);
         } catch (err) {
+            console.error("Google Sign-In Error:", err.code, err.message);
             setError(
                 err.code === "auth/popup-closed-by-user"
                     ? "Sign-in popup was closed"
-                    : "Google sign-in failed. Please try again."
+                    : `Google sign-in failed: ${err.code || err.message}`
             );
         } finally {
             setLoading(false);
