@@ -168,7 +168,7 @@ export default function ResumePreview({ resumeData, previewRef }) {
                                                     <p style={{ color: "#475569", lineHeight: 1.4, margin: "2px 0" }}>{proj.description}</p>
                                                 )}
                                                 {proj.technologies && (
-                                                    <p style={{ fontSize: "8.5pt", color: "#374151", fontWeight: 500, margin: 0 }}>
+                                                    <p style={{ fontSize: "9pt", color: "#1a1a1a", fontWeight: 700, margin: "3px 0 0 0" }}>
                                                         Tech: {proj.technologies}
                                                     </p>
                                                 )}
