@@ -154,7 +154,7 @@ export default function ResumePreview({ resumeData, previewRef }) {
                                         .map((proj, i) => (
                                             <div key={i} style={{ marginBottom: "8px" }}>
                                                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
-                                                    <span style={{ fontWeight: 700, color: "#1e293b", fontSize: "11pt" }}>• {proj.title}</span>
+                                                    <span style={{ fontWeight: 700, color: "#1e293b", fontSize: "10pt" }}>{proj.title}</span>
                                                     <span style={{ display: "flex", gap: "10px", fontSize: "8pt" }}>
                                                         {proj.githubLink && (
                                                             <a href={proj.githubLink.startsWith("http") ? proj.githubLink : `https://${proj.githubLink}`} style={{ color: "#1a1a1a", textDecoration: "none", fontWeight: 600 }}>GitHub</a>
@@ -164,17 +164,18 @@ export default function ResumePreview({ resumeData, previewRef }) {
                                                         )}
                                                     </span>
                                                 </div>
-                                                {proj.description && (
+                                                {(proj.description || proj.technologies) && (
                                                     <ul style={{ paddingLeft: "18px", margin: "2px 0", color: "#475569", lineHeight: 1.5 }}>
-                                                        {proj.description.split(/[.\n]/).filter(line => line.trim()).map((line, j) => (
-                                                            <li key={j} style={{ marginBottom: "1px" }}>{line.trim()}</li>
+                                                        {proj.description && proj.description.split(/[.\n]/).filter(line => line.trim()).map((line, j) => (
+                                                            <li key={j} style={{ marginBottom: "1px" }}>{line.trim()}.</li>
                                                         ))}
+                                                        {proj.technologies && (
+                                                            <li style={{ marginBottom: "1px" }}>
+                                                                <span style={{ fontWeight: 600, color: "#1a1a1a" }}>Tech Stack and Tools : </span>
+                                                                {proj.technologies}
+                                                            </li>
+                                                        )}
                                                     </ul>
-                                                )}
-                                                {proj.technologies && (
-                                                    <p style={{ fontSize: "9pt", color: "#1a1a1a", fontWeight: 600, margin: "3px 0 0 0", paddingLeft: "18px" }}>
-                                                        Tech stack: {proj.technologies}
-                                                    </p>
                                                 )}
                                             </div>
                                         ))}
