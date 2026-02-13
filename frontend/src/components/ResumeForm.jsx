@@ -1,7 +1,7 @@
 import { Plus, Trash2, GraduationCap, Briefcase, Award, Wrench, User, FileText, Github, ExternalLink } from "lucide-react";
 
 const sectionClass =
-    "bg-[var(--color-surface-light)] dark:bg-[var(--color-surface-dark)] rounded-2xl border border-[var(--color-border-light)] dark:border-[var(--color-border-dark)] p-5 shadow-sm";
+    "bg-[var(--color-surface-light)] dark:bg-[var(--color-surface-dark)] rounded-2xl border border-[var(--color-border-light)] dark:border-[var(--color-border-dark)] p-6 shadow-sm";
 
 const inputClass =
     "w-full px-3 py-2.5 rounded-xl bg-[var(--color-bg-light)] dark:bg-[var(--color-bg-dark)] border border-[var(--color-border-light)] dark:border-[var(--color-border-dark)] text-[var(--color-text-light)] dark:text-[var(--color-text-dark)] placeholder:text-[var(--color-muted-light)] dark:placeholder:text-[var(--color-muted-dark)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent transition-all text-sm";
@@ -24,7 +24,7 @@ const AddButton = ({ onClick, label }) => (
     <button
         type="button"
         onClick={onClick}
-        className="flex items-center gap-1.5 text-sm text-[var(--color-primary)] hover:text-[var(--color-primary-dark)] font-medium transition-colors mt-3 cursor-pointer"
+        className="flex items-center gap-1.5 text-sm text-[var(--color-text-light)] dark:text-[var(--color-text-dark)] font-medium hover:opacity-70 transition-all mt-3 cursor-pointer"
     >
         <Plus size={16} />
         {label}
@@ -108,7 +108,7 @@ export default function ResumeForm({ resumeData, setResumeData }) {
     };
 
     return (
-        <div className="space-y-5 animate-fade-in">
+        <div className="animate-fade-in" style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
             {/* Personal Information */}
             <div className={sectionClass}>
                 <SectionHeader icon={User} title="Personal Information" />
@@ -316,31 +316,41 @@ export default function ResumeForm({ resumeData, setResumeData }) {
             {/* Skills */}
             <div className={sectionClass}>
                 <SectionHeader icon={Wrench} title="Skills" />
-                <input
-                    className={inputClass}
-                    placeholder="React, JavaScript, Python, Docker (comma separated)"
-                    value={resumeData.skills.join(", ")}
-                    onChange={(e) =>
-                        update(
-                            "skills",
-                            e.target.value.split(",").map((s) => s.trimStart())
-                        )
-                    }
-                />
-                {resumeData.skills.filter((s) => s.trim()).length > 0 && (
-                    <div className="flex flex-wrap gap-2 mt-3">
-                        {resumeData.skills
-                            .filter((s) => s.trim())
-                            .map((skill, i) => (
-                                <span
-                                    key={i}
-                                    className="px-3 py-1 rounded-full text-xs font-medium bg-[var(--color-primary)]/10 text-[var(--color-primary)] border border-[var(--color-primary)]/20"
-                                >
-                                    {skill.trim()}
-                                </span>
-                            ))}
+                <div className="space-y-3">
+                    <div>
+                        <label className={labelClass}>Programming Languages</label>
+                        <input
+                            className={inputClass}
+                            placeholder="Java, Python, C++, JavaScript"
+                            value={resumeData.skills.programmingLanguages}
+                            onChange={(e) =>
+                                update("skills", { ...resumeData.skills, programmingLanguages: e.target.value })
+                            }
+                        />
                     </div>
-                )}
+                    <div>
+                        <label className={labelClass}>Frontend & Backend Technologies</label>
+                        <input
+                            className={inputClass}
+                            placeholder="React, Node.js, Express, MongoDB, HTML, CSS"
+                            value={resumeData.skills.frontendBackend}
+                            onChange={(e) =>
+                                update("skills", { ...resumeData.skills, frontendBackend: e.target.value })
+                            }
+                        />
+                    </div>
+                    <div>
+                        <label className={labelClass}>Tools</label>
+                        <input
+                            className={inputClass}
+                            placeholder="Git, Docker, VS Code, Postman"
+                            value={resumeData.skills.tools}
+                            onChange={(e) =>
+                                update("skills", { ...resumeData.skills, tools: e.target.value })
+                            }
+                        />
+                    </div>
+                </div>
             </div>
 
             {/* Achievements */}

@@ -1,17 +1,10 @@
 import { useState, useEffect, useRef } from "react";
-import { auth, signOut, onAuthStateChanged } from "./firebase";
-import { saveResume, getResume, updateResume } from "./api";
-import Auth from "./components/Auth";
 import ResumeForm from "./components/ResumeForm";
 import ResumePreview from "./components/ResumePreview";
 import {
   Download,
-  Save,
-  LogOut,
   Moon,
   Sun,
-  Loader2,
-  CheckCircle,
   Menu,
   X,
   FileText,
@@ -28,86 +21,43 @@ const initialResumeData = {
   professionalSummary: "",
   education: [{ degree: "", institution: "", fromYear: "", toYear: "", cgpa: "" }],
   projects: [{ title: "", description: "", technologies: "", githubLink: "", liveLink: "" }],
-  skills: [],
+  skills: {
+    programmingLanguages: "",
+    frontendBackend: "",
+    tools: "",
+  },
   achievements: [""],
 };
 
 export default function App() {
-  const [user, setUser] = useState(null);
-  const [authLoading, setAuthLoading] = useState(true);
-  const [resumeData, setResumeData] = useState(initialResumeData);
-  const [darkMode, setDarkMode] = useState(false);
-  const [saving, setSaving] = useState(false);
-  const [saveStatus, setSaveStatus] = useState("");
-  const [dataLoaded, setDataLoaded] = useState(false);
+  const [resumeData, setResumeData] = useState(() => {
+    try {
+      const saved = localStorage.getItem("resumeData");
+      return saved ? JSON.parse(saved) : initialResumeData;
+    } catch {
+      return initialResumeData;
+    }
+  });
+  const [darkMode, setDarkMode] = useState(() => {
+    try {
+      return localStorage.getItem("darkMode") === "true";
+    } catch {
+      return false;
+    }
+  });
   const [mobilePreview, setMobilePreview] = useState(false);
   const previewRef = useRef(null);
 
-  // Auth state listener
+  // Save resume data to localStorage
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      setAuthLoading(false);
-    });
-    return () => unsubscribe();
-  }, []);
+    localStorage.setItem("resumeData", JSON.stringify(resumeData));
+  }, [resumeData]);
 
-  // Dark mode toggle
+  // Dark mode toggle + persist
   useEffect(() => {
     document.body.classList.toggle("dark", darkMode);
+    localStorage.setItem("darkMode", String(darkMode));
   }, [darkMode]);
-
-  // Load resume data when user logs in
-  useEffect(() => {
-    if (user && !dataLoaded) {
-      loadResumeData();
-    }
-  }, [user]);
-
-  const loadResumeData = async () => {
-    try {
-      const data = await getResume(user.uid);
-      if (data) {
-        setResumeData({
-          ...initialResumeData,
-          ...data,
-          personalInfo: { ...initialResumeData.personalInfo, ...data.personalInfo },
-        });
-      }
-      setDataLoaded(true);
-    } catch (err) {
-      if (err.response?.status !== 404) {
-        console.error("Failed to load resume:", err);
-      }
-      setDataLoaded(true);
-    }
-  };
-
-  const handleSave = async () => {
-    setSaving(true);
-    setSaveStatus("");
-    try {
-      if (dataLoaded) {
-        await updateResume(resumeData);
-      } else {
-        await saveResume(resumeData);
-      }
-      setSaveStatus("saved");
-      setTimeout(() => setSaveStatus(""), 3000);
-    } catch (err) {
-      // If update fails because doc doesn't exist, try save
-      try {
-        await saveResume(resumeData);
-        setSaveStatus("saved");
-        setTimeout(() => setSaveStatus(""), 3000);
-      } catch (saveErr) {
-        setSaveStatus("error");
-        setTimeout(() => setSaveStatus(""), 3000);
-      }
-    } finally {
-      setSaving(false);
-    }
-  };
 
   const handleDownloadPDF = async () => {
     if (!previewRef.current) return;
@@ -133,45 +83,6 @@ export default function App() {
     html2pdf().set(opt).from(previewRef.current).save();
   };
 
-  const handleLogout = async () => {
-    try {
-      await signOut(auth);
-      setResumeData(initialResumeData);
-      setDataLoaded(false);
-    } catch (err) {
-      console.error("Logout failed:", err);
-    }
-  };
-
-  // Loading screen
-  if (authLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-[var(--color-bg-light)] dark:bg-[var(--color-bg-dark)]">
-        <div className="text-center animate-fade-in">
-          <Loader2 size={40} className="animate-spin text-[var(--color-primary)] mx-auto mb-4" />
-          <p className="text-[var(--color-muted-light)] dark:text-[var(--color-muted-dark)]">Loading...</p>
-        </div>
-      </div>
-    );
-  }
-
-  // Auth screen
-  if (!user) {
-    return (
-      <div className={darkMode ? "dark" : ""}>
-        <div className="absolute top-4 right-4 z-50">
-          <button
-            onClick={() => setDarkMode(!darkMode)}
-            className="p-2.5 rounded-xl bg-[var(--color-surface-light)] dark:bg-[var(--color-surface-dark)] border border-[var(--color-border-light)] dark:border-[var(--color-border-dark)] text-[var(--color-text-light)] dark:text-[var(--color-text-dark)] shadow-sm hover:shadow-md transition-all cursor-pointer"
-          >
-            {darkMode ? <Sun size={18} /> : <Moon size={18} />}
-          </button>
-        </div>
-        <Auth />
-      </div>
-    );
-  }
-
   // Main App
   return (
     <div className={`min-h-screen bg-[var(--color-bg-light)] dark:bg-[var(--color-bg-dark)] transition-colors duration-300 ${darkMode ? "dark" : ""}`}>
@@ -187,39 +98,18 @@ export default function App() {
               <h1 className="text-lg font-bold text-[var(--color-text-light)] dark:text-[var(--color-text-dark)] leading-tight">
                 Resume Maker
               </h1>
-              <p className="text-[10px] text-[var(--color-muted-light)] dark:text-[var(--color-muted-dark)] leading-tight hidden sm:block">
-                {user.email}
-              </p>
             </div>
           </div>
 
           {/* Right - Actions */}
           <div className="flex items-center gap-2">
-            {/* Save */}
-            <button
-              onClick={handleSave}
-              disabled={saving}
-              className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[var(--color-primary)] text-white text-sm font-medium hover:bg-[var(--color-primary-dark)] transition-all disabled:opacity-50 cursor-pointer shadow-sm"
-            >
-              {saving ? (
-                <Loader2 size={16} className="animate-spin" />
-              ) : saveStatus === "saved" ? (
-                <CheckCircle size={16} />
-              ) : (
-                <Save size={16} />
-              )}
-              <span className="hidden sm:inline">
-                {saving ? "Saving..." : saveStatus === "saved" ? "Saved!" : "Save"}
-              </span>
-            </button>
-
             {/* Download PDF */}
             <button
               onClick={handleDownloadPDF}
               className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[var(--color-success)] text-white text-sm font-medium hover:bg-green-600 transition-all cursor-pointer shadow-sm"
             >
               <Download size={16} />
-              <span className="hidden sm:inline">PDF</span>
+              <span className="hidden sm:inline">Download PDF</span>
             </button>
 
             {/* Mobile toggle */}
@@ -236,14 +126,6 @@ export default function App() {
               className="p-2 rounded-xl bg-[var(--color-bg-light)] dark:bg-[var(--color-bg-dark)] border border-[var(--color-border-light)] dark:border-[var(--color-border-dark)] text-[var(--color-text-light)] dark:text-[var(--color-text-dark)] hover:shadow-md transition-all cursor-pointer"
             >
               {darkMode ? <Sun size={18} /> : <Moon size={18} />}
-            </button>
-
-            {/* Logout */}
-            <button
-              onClick={handleLogout}
-              className="p-2 rounded-xl bg-[var(--color-bg-light)] dark:bg-[var(--color-bg-dark)] border border-[var(--color-border-light)] dark:border-[var(--color-border-dark)] text-[var(--color-danger)] hover:bg-red-50 dark:hover:bg-red-900/20 transition-all cursor-pointer"
-            >
-              <LogOut size={18} />
             </button>
           </div>
         </div>
