@@ -154,7 +154,7 @@ export default function ResumePreview({ resumeData, previewRef }) {
                                         .map((proj, i) => (
                                             <div key={i} style={{ marginBottom: "8px" }}>
                                                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
-                                                    <span style={{ fontWeight: 700, color: "#1e293b", fontSize: "11pt" }}>{proj.title}</span>
+                                                    <span style={{ fontWeight: 700, color: "#1e293b", fontSize: "11pt" }}>• {proj.title}</span>
                                                     <span style={{ display: "flex", gap: "10px", fontSize: "8pt" }}>
                                                         {proj.githubLink && (
                                                             <a href={proj.githubLink.startsWith("http") ? proj.githubLink : `https://${proj.githubLink}`} style={{ color: "#1a1a1a", textDecoration: "none", fontWeight: 600 }}>GitHub</a>
