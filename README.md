@@ -46,14 +46,12 @@ A modern, professional resume builder that lets you create **ATS-friendly resume
    npm install
    ```
 
-   ```
-
 3. **Run the app**
    ```bash
    npm run dev
    ```
 
-4. Open [http://localhost:5173](http://localhost:5173) in your browser 🎉
+5. Open [http://localhost:5173](http://localhost:5173) in your browser 🎉
 
 ## 📁 Project Structure
 
