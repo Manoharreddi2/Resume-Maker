@@ -165,7 +165,11 @@ export default function ResumePreview({ resumeData, previewRef }) {
                                                     </span>
                                                 </div>
                                                 {proj.description && (
-                                                    <p style={{ color: "#475569", lineHeight: 1.4, margin: "2px 0" }}>{proj.description}</p>
+                                                    <ul style={{ paddingLeft: "18px", margin: "2px 0", color: "#475569", lineHeight: 1.5 }}>
+                                                        {proj.description.split("\n").filter(line => line.trim()).map((line, j) => (
+                                                            <li key={j} style={{ marginBottom: "1px" }}>{line.trim()}</li>
+                                                        ))}
+                                                    </ul>
                                                 )}
                                                 {proj.technologies && (
                                                     <p style={{ fontSize: "9pt", color: "#1a1a1a", fontWeight: 700, margin: "3px 0 0 0" }}>

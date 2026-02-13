@@ -268,10 +268,10 @@ export default function ResumeForm({ resumeData, setResumeData }) {
                                 <label className={labelClass}>Description</label>
                                 <textarea
                                     className={`${inputClass} resize-none`}
-                                    placeholder="Brief description of the project..."
+                                    placeholder="Enter each point on a new line&#10;Built a full-stack app using React and Node.js&#10;Implemented authentication with JWT"
                                     value={project.description}
                                     onChange={(e) => updateProject(index, "description", e.target.value)}
-                                    rows={2}
+                                    rows={3}
                                 />
                             </div>
                             <div>
