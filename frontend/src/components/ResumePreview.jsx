@@ -172,7 +172,7 @@ export default function ResumePreview({ resumeData, previewRef }) {
                                                         {proj.technologies && (
                                                             <li style={{ marginBottom: "1px" }}>
                                                                 <span style={{ fontWeight: 600, color: "#1a1a1a" }}>Tech Stack and Tools : </span>
-                                                                {proj.technologies}
+                                                                <span style={{ fontWeight: 600, color: "#1a1a1a" }}>{proj.technologies}</span>
                                                             </li>
                                                         )}
                                                     </ul>
