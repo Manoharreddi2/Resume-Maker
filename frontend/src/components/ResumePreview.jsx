@@ -178,7 +178,7 @@ export default function ResumePreview({ resumeData, previewRef }) {
                                                             <li key={j} style={{ marginBottom: "2px" }}>{line.trim()}.</li>
                                                         ))}
                                                         {proj.technologies && (
-                                                            <li style={{ fontStyle: "italic" }}>Tech Stack: {proj.technologies}</li>
+                                                            <li style={{ fontWeight: 700 }}>Tech Stack: {proj.technologies}</li>
                                                         )}
                                                     </ul>
                                                 )}
