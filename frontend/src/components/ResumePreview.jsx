@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { AlertTriangle } from "lucide-react";
+import { AlertTriangle, Phone, Mail, Linkedin, Github, ExternalLink, Globe } from "lucide-react";
 
 const A4_HEIGHT_PX = 1122; // ~297mm at 96dpi
 const A4_WIDTH_PX = 794; // ~210mm at 96dpi
@@ -91,22 +91,32 @@ export default function ResumePreview({ resumeData, previewRef }) {
                                     <h1 style={{ fontSize: "24pt", fontWeight: 700, color: "#003366", textTransform: "uppercase", margin: "0 0 5px 0" }}>
                                         {personalInfo.fullName}
                                     </h1>
-                                    <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "6px 8px", fontSize: "10pt", color: "#000000" }}>
-                                        {personalInfo.phone && <span>{personalInfo.phone}</span>}
+                                    <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "6px 12px", fontSize: "9.5pt", color: "#000000", alignItems: "center" }}>
+                                        {personalInfo.phone && (
+                                            <span style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+                                                <Phone size={12} strokeWidth={2.5} /> {personalInfo.phone}
+                                            </span>
+                                        )}
                                         {(personalInfo.phone && personalInfo.email) && <span style={{ color: "#000000" }}>◊</span>}
                                         {personalInfo.email && (
-                                            <a href={`mailto:${personalInfo.email}`} style={{ color: "#0000ee", textDecoration: "none" }}>{personalInfo.email}</a>
+                                            <a href={`mailto:${personalInfo.email}`} style={{ color: "#0000ee", textDecoration: "none", display: "flex", alignItems: "center", gap: "4px" }}>
+                                                <Mail size={12} strokeWidth={2.5} /> {personalInfo.email}
+                                            </a>
                                         )}
                                         {personalInfo.linkedin && (
                                             <>
                                                 <span style={{ color: "#000000" }}>◊</span>
-                                                <a href={personalInfo.linkedin.startsWith("http") ? personalInfo.linkedin : `https://${personalInfo.linkedin}`} style={{ color: "#0000ee", textDecoration: "none" }}>linkedin.com/in/{personalInfo.fullName.toLowerCase().split(' ').join('')}</a>
+                                                <a href={personalInfo.linkedin.startsWith("http") ? personalInfo.linkedin : `https://${personalInfo.linkedin}`} style={{ color: "#0000ee", textDecoration: "none", display: "flex", alignItems: "center", gap: "4px" }}>
+                                                    <Linkedin size={12} strokeWidth={2.5} /> linkedin.com/in/{personalInfo.fullName.toLowerCase().split(' ').join('')}
+                                                </a>
                                             </>
                                         )}
                                         {personalInfo.github && (
                                             <>
                                                 <span style={{ color: "#000000" }}>◊</span>
-                                                <a href={personalInfo.github.startsWith("http") ? personalInfo.github : `https://${personalInfo.github}`} style={{ color: "#0000ee", textDecoration: "none" }}>github.com/{personalInfo.fullName.toLowerCase().split(' ').join('')}</a>
+                                                <a href={personalInfo.github.startsWith("http") ? personalInfo.github : `https://${personalInfo.github}`} style={{ color: "#0000ee", textDecoration: "none", display: "flex", alignItems: "center", gap: "4px" }}>
+                                                    <Github size={12} strokeWidth={2.5} /> github.com/{personalInfo.fullName.toLowerCase().split(' ').join('')}
+                                                </a>
                                             </>
                                         )}
                                     </div>
@@ -171,7 +181,21 @@ export default function ResumePreview({ resumeData, previewRef }) {
                                         .filter((p) => p.title)
                                         .map((proj, i) => (
                                             <div key={i} style={{ marginBottom: "8px" }}>
-                                                <div style={{ fontWeight: 700, marginBottom: "2px" }}>{proj.title}</div>
+                                                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+                                                    <div style={{ fontWeight: 700, marginBottom: "2px" }}>{proj.title}</div>
+                                                    <div style={{ display: "flex", gap: "10px", fontSize: "8pt" }}>
+                                                        {proj.githubLink && (
+                                                            <a href={proj.githubLink.startsWith("http") ? proj.githubLink : `https://${proj.githubLink}`} style={{ color: "#1a1a1a", textDecoration: "none", fontWeight: 600, display: "flex", alignItems: "center", gap: "3px" }}>
+                                                                <Github size={10} /> GitHub
+                                                            </a>
+                                                        )}
+                                                        {proj.liveLink && (
+                                                            <a href={proj.liveLink.startsWith("http") ? proj.liveLink : `https://${proj.liveLink}`} style={{ color: "#1a1a1a", textDecoration: "none", fontWeight: 600, display: "flex", alignItems: "center", gap: "3px" }}>
+                                                                <ExternalLink size={10} /> Live
+                                                            </a>
+                                                        )}
+                                                    </div>
+                                                </div>
                                                 {(proj.description || proj.technologies) && (
                                                     <ul style={{ paddingLeft: "20px", margin: "0", listStyleType: "disc" }}>
                                                         {proj.description && proj.description.split(/[.\n]/).filter(line => line.trim()).slice(0, 8).map((line, j) => (
