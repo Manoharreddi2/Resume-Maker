@@ -68,7 +68,7 @@ export default function ResumePreview({ resumeData, previewRef }) {
             >
                 <div
                     ref={contentRef}
-                    style={{ fontSize: `${fontSize}pt`, padding: "30px 35px", color: "#1a1a1a", fontFamily: "'Inter', 'Segoe UI', Arial, sans-serif" }}
+                    style={{ fontSize: `${fontSize}pt`, padding: "30px 35px", color: "#1a1a1a", fontFamily: "'Calibri', 'Candara', 'Segoe UI', 'Optima', 'Arial', sans-serif" }}
                 >
                     {!hasContent ? (
                         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "400px", color: "#94a3b8" }}>
@@ -166,7 +166,7 @@ export default function ResumePreview({ resumeData, previewRef }) {
                                                 </div>
                                                 {(proj.description || proj.technologies) && (
                                                     <ul style={{ paddingLeft: "18px", margin: "2px 0", color: "#475569", lineHeight: 1.5 }}>
-                                                        {proj.description && proj.description.split(/[.\n]/).filter(line => line.trim()).map((line, j) => (
+                                                        {proj.description && proj.description.split(/[.\n]/).filter(line => line.trim()).slice(0, 5).map((line, j) => (
                                                             <li key={j} style={{ marginBottom: "1px" }}>{line.trim()}.</li>
                                                         ))}
                                                         {proj.technologies && (
