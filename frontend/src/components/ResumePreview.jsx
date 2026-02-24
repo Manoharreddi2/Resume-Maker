@@ -117,7 +117,7 @@ export default function ResumePreview({ resumeData, previewRef }) {
                             {professionalSummary && (
                                 <div style={{ marginBottom: "12px" }}>
                                     <h2 style={sectionTitleStyle}>Objective</h2>
-                                    <p style={{ margin: 0 }}>{professionalSummary}</p>
+                                    <p style={{ margin: "2px 0 0 0", textAlign: "justify", lineHeight: 1.4 }}>{professionalSummary}</p>
                                 </div>
                             )}
 
