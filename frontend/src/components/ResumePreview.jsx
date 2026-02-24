@@ -129,16 +129,15 @@ export default function ResumePreview({ resumeData, previewRef }) {
                                     {education
                                         .filter((e) => e.degree || e.institution)
                                         .map((edu, i) => (
-                                            <div key={i} style={{ marginBottom: "6px" }}>
+                                            <div key={i} style={{ marginBottom: "4px" }}>
                                                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
-                                                    <span style={{ fontWeight: 600, color: "#1e293b" }}>{edu.degree}</span>
-                                                    <span style={{ fontSize: "8.5pt", color: "#64748b" }}>
-                                                        {edu.fromYear && edu.toYear ? `${edu.fromYear} - ${edu.toYear}` : edu.fromYear || edu.toYear || ""}
+                                                    <span style={{ fontWeight: 600, color: "#000000" }}>
+                                                        {edu.degree}{edu.institution ? `, ${edu.institution}` : ""}
+                                                        {edu.cgpa ? ` – ${edu.cgpa} CGPA` : ""}
                                                     </span>
-                                                </div>
-                                                <div style={{ display: "flex", justifyContent: "space-between", color: "#475569" }}>
-                                                    <span>{edu.institution}</span>
-                                                    {edu.cgpa && <span style={{ fontSize: "8.5pt" }}>CGPA: {edu.cgpa}</span>}
+                                                    <span style={{ fontSize: "9pt", fontWeight: 500, color: "#000000" }}>
+                                                        {edu.fromYear && edu.toYear ? `${edu.fromYear} – ${edu.toYear}` : edu.fromYear || edu.toYear || ""}
+                                                    </span>
                                                 </div>
                                             </div>
                                         ))}
@@ -154,7 +153,7 @@ export default function ResumePreview({ resumeData, previewRef }) {
                                         .map((proj, i) => (
                                             <div key={i} style={{ marginBottom: "8px" }}>
                                                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
-                                                    <span style={{ fontWeight: 700, color: "#1e293b", fontSize: "10pt" }}>• {proj.title}</span>
+                                                    <span style={{ fontWeight: 700, color: "#000000", fontSize: "10pt" }}>{proj.title}</span>
                                                     <span style={{ display: "flex", gap: "10px", fontSize: "8pt" }}>
                                                         {proj.githubLink && (
                                                             <a href={proj.githubLink.startsWith("http") ? proj.githubLink : `https://${proj.githubLink}`} style={{ color: "#1a1a1a", textDecoration: "none", fontWeight: 600 }}>GitHub</a>
@@ -165,14 +164,14 @@ export default function ResumePreview({ resumeData, previewRef }) {
                                                     </span>
                                                 </div>
                                                 {(proj.description || proj.technologies) && (
-                                                    <ul style={{ paddingLeft: "18px", margin: "2px 0", color: "#475569", lineHeight: 1.5 }}>
+                                                    <ul style={{ paddingLeft: "18px", margin: "2px 0", color: "#000000", lineHeight: 1.4 }}>
                                                         {proj.description && proj.description.split(/[.\n]/).filter(line => line.trim()).slice(0, 5).map((line, j) => (
                                                             <li key={j} style={{ marginBottom: "1px" }}>{line.trim()}.</li>
                                                         ))}
                                                         {proj.technologies && (
                                                             <li style={{ marginBottom: "1px" }}>
-                                                                <span style={{ fontWeight: 600, color: "#1a1a1a" }}>Tech Stack and Tools : </span>
-                                                                <span style={{ fontWeight: 600, color: "#1a1a1a" }}>{proj.technologies}</span>
+                                                                <span style={{ fontWeight: 600 }}>Tech Stack and Tools: </span>
+                                                                <span>{proj.technologies}</span>
                                                             </li>
                                                         )}
                                                     </ul>
@@ -185,23 +184,23 @@ export default function ResumePreview({ resumeData, previewRef }) {
                             {/* Skills */}
                             {(skills.programmingLanguages || skills.frontendBackend || skills.tools) && (
                                 <div style={{ marginBottom: "10px" }}>
-                                    <h2 style={sectionTitleStyle}>Skills</h2>
-                                    <div style={{ lineHeight: 1.8, color: "#334155", fontSize: "9pt" }}>
+                                    <h2 style={sectionTitleStyle}>Skills Summary</h2>
+                                    <div style={{ lineHeight: 1.6, color: "#000000", fontSize: "9.5pt" }}>
                                         {skills.programmingLanguages && (
                                             <p style={{ margin: "0 0 2px 0" }}>
-                                                <span style={{ fontWeight: 600, color: "#1a1a1a" }}>Programming Languages: </span>
+                                                <span style={{ fontWeight: 700 }}>Programming Languages: </span>
                                                 {skills.programmingLanguages}
                                             </p>
                                         )}
                                         {skills.frontendBackend && (
                                             <p style={{ margin: "0 0 2px 0" }}>
-                                                <span style={{ fontWeight: 600, color: "#1a1a1a" }}>Frontend & Backend: </span>
+                                                <span style={{ fontWeight: 700 }}>Frontend & Backend: </span>
                                                 {skills.frontendBackend}
                                             </p>
                                         )}
                                         {skills.tools && (
                                             <p style={{ margin: 0 }}>
-                                                <span style={{ fontWeight: 600, color: "#1a1a1a" }}>Tools: </span>
+                                                <span style={{ fontWeight: 700 }}>Build and Tools: </span>
                                                 {skills.tools}
                                             </p>
                                         )}
@@ -213,7 +212,7 @@ export default function ResumePreview({ resumeData, previewRef }) {
                             {achievements.some((a) => a.trim()) && (
                                 <div>
                                     <h2 style={sectionTitleStyle}>Achievements / Certifications</h2>
-                                    <ul style={{ paddingLeft: "18px", margin: 0, color: "#334155" }}>
+                                    <ul style={{ paddingLeft: "18px", margin: 0, color: "#000000" }}>
                                         {achievements
                                             .filter((a) => a.trim())
                                             .map((ach, i) => (
@@ -238,13 +237,11 @@ export default function ResumePreview({ resumeData, previewRef }) {
 }
 
 const sectionTitleStyle = {
-    fontSize: "11pt",
+    fontSize: "12pt",
     fontWeight: 700,
-    color: "#1e293b",
-    textTransform: "uppercase",
-    letterSpacing: "1px",
-    borderBottom: "1px solid #cbd5e1",
-    paddingBottom: "3px",
-    marginBottom: "6px",
-    marginTop: 0,
+    color: "#000000",
+    borderBottom: "1.5px solid #000000",
+    paddingBottom: "2px",
+    marginBottom: "8px",
+    marginTop: "14px",
 };
