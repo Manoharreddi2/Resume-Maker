@@ -1,20 +1,20 @@
 import { Plus, Trash2, GraduationCap, Briefcase, Award, Wrench, User, FileText, Github, ExternalLink } from "lucide-react";
 
 const sectionClass =
-    "bg-[var(--color-surface-light)] dark:bg-[var(--color-surface-dark)] rounded-2xl border border-[var(--color-border-light)] dark:border-[var(--color-border-dark)] p-6 shadow-sm";
+    "bg-white dark:bg-[var(--color-surface-dark)] rounded-lg border-l-4 border-l-[var(--color-primary)] border border-[var(--color-border-light)] dark:border-[var(--color-border-dark)] p-6 shadow-sm";
 
 const inputClass =
-    "w-full px-3 py-2.5 rounded-xl bg-[var(--color-bg-light)] dark:bg-[var(--color-bg-dark)] border border-[var(--color-border-light)] dark:border-[var(--color-border-dark)] text-[var(--color-text-light)] dark:text-[var(--color-text-dark)] placeholder:text-[var(--color-muted-light)] dark:placeholder:text-[var(--color-muted-dark)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent transition-all text-sm";
+    "w-full px-3 py-2.5 rounded-lg bg-white dark:bg-[var(--color-bg-dark)] border border-[var(--color-border-light)] dark:border-[var(--color-border-dark)] text-[var(--color-text-light)] dark:text-[var(--color-text-dark)] placeholder:text-[var(--color-muted-light)] dark:placeholder:text-[var(--color-muted-dark)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent transition-all text-sm";
 
 const labelClass =
-    "block text-xs font-semibold text-[var(--color-muted-light)] dark:text-[var(--color-muted-dark)] uppercase tracking-wider mb-1.5";
+    "block text-sm font-bold text-[var(--color-text-light)] dark:text-[var(--color-text-dark)] mb-1.5";
 
 const SectionHeader = ({ icon: Icon, title }) => (
-    <div className="flex items-center gap-2 mb-4">
+    <div className="flex items-center gap-2 mb-5">
         <div className="p-2 rounded-lg bg-[var(--color-primary)]/10">
             <Icon size={16} className="text-[var(--color-primary)]" />
         </div>
-        <h3 className="font-semibold text-[var(--color-text-light)] dark:text-[var(--color-text-dark)]">
+        <h3 className="font-bold text-lg text-[var(--color-text-light)] dark:text-[var(--color-text-dark)]">
             {title}
         </h3>
     </div>
@@ -24,20 +24,21 @@ const AddButton = ({ onClick, label }) => (
     <button
         type="button"
         onClick={onClick}
-        className="flex items-center gap-1.5 text-sm text-[var(--color-text-light)] dark:text-[var(--color-text-dark)] font-medium hover:opacity-70 transition-all mt-3 cursor-pointer"
+        className="flex items-center gap-1.5 text-sm text-[var(--color-primary)] font-semibold hover:opacity-70 transition-all mt-4 cursor-pointer"
     >
         <Plus size={16} />
         {label}
     </button>
 );
 
-const RemoveButton = ({ onClick }) => (
+const RemoveButton = ({ onClick, label }) => (
     <button
         type="button"
         onClick={onClick}
-        className="p-1.5 rounded-lg text-[var(--color-muted-light)] hover:text-[var(--color-danger)] hover:bg-red-50 dark:hover:bg-red-900/20 transition-all cursor-pointer"
+        className="flex items-center gap-1.5 text-sm text-[var(--color-danger)] font-medium hover:opacity-70 transition-all mt-3 cursor-pointer px-3 py-1.5 rounded-full border border-[var(--color-danger)]/30 hover:bg-red-50 dark:hover:bg-red-900/20"
     >
         <Trash2 size={14} />
+        {label}
     </button>
 );
 
@@ -57,7 +58,7 @@ export default function ResumeForm({ resumeData, setResumeData }) {
     const addEducation = () => {
         update("education", [
             ...resumeData.education,
-            { degree: "", institution: "", fromYear: "", toYear: "", cgpa: "" },
+            { degree: "", fieldOfStudy: "", institution: "", location: "", fromYear: "", toYear: "", cgpa: "" },
         ]);
     };
     const removeEducation = (index) => {
@@ -108,11 +109,11 @@ export default function ResumeForm({ resumeData, setResumeData }) {
     };
 
     return (
-        <div className="animate-fade-in" style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+        <div className="animate-fade-in" style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
             {/* Personal Information */}
             <div className={sectionClass}>
                 <SectionHeader icon={User} title="Personal Information" />
-                <div className="space-y-3">
+                <div className="space-y-4">
                     <div>
                         <label className={labelClass}>Full Name</label>
                         <input
@@ -122,7 +123,7 @@ export default function ResumeForm({ resumeData, setResumeData }) {
                             onChange={(e) => updatePersonal("fullName", e.target.value)}
                         />
                     </div>
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-2 gap-4">
                         <div>
                             <label className={labelClass}>Email</label>
                             <input
@@ -143,7 +144,7 @@ export default function ResumeForm({ resumeData, setResumeData }) {
                             />
                         </div>
                     </div>
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-2 gap-4">
                         <div>
                             <label className={labelClass}>LinkedIn</label>
                             <input
@@ -184,59 +185,79 @@ export default function ResumeForm({ resumeData, setResumeData }) {
                 {resumeData.education.map((edu, index) => (
                     <div
                         key={index}
-                        className="relative p-4 mb-3 rounded-xl bg-[var(--color-bg-light)] dark:bg-[var(--color-bg-dark)] border border-[var(--color-border-light)] dark:border-[var(--color-border-dark)] animate-slide-in"
+                        className="relative p-5 mb-4 rounded-lg bg-[var(--color-bg-light)] dark:bg-[var(--color-bg-dark)] border border-[var(--color-border-light)] dark:border-[var(--color-border-dark)] animate-slide-in"
                     >
-                        <div className="absolute top-3 right-3">
-                            <RemoveButton onClick={() => removeEducation(index)} />
-                        </div>
-                        <div className="space-y-3 pr-8">
+                        <div className="space-y-4">
                             <div>
-                                <label className={labelClass}>Degree</label>
+                                <label className={labelClass}>School/University</label>
                                 <input
                                     className={inputClass}
-                                    placeholder="B.Tech in Computer Science"
-                                    value={edu.degree}
-                                    onChange={(e) => updateEducation(index, "degree", e.target.value)}
-                                />
-                            </div>
-                            <div>
-                                <label className={labelClass}>Institution</label>
-                                <input
-                                    className={inputClass}
-                                    placeholder="University Name"
+                                    placeholder="Stanford University"
                                     value={edu.institution}
                                     onChange={(e) => updateEducation(index, "institution", e.target.value)}
                                 />
                             </div>
-                            <div className="grid grid-cols-3 gap-3">
+                            <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className={labelClass}>From</label>
+                                    <label className={labelClass}>Degree</label>
                                     <input
                                         className={inputClass}
-                                        placeholder="2021"
+                                        placeholder="Master of Business"
+                                        value={edu.degree}
+                                        onChange={(e) => updateEducation(index, "degree", e.target.value)}
+                                    />
+                                </div>
+                                <div>
+                                    <label className={labelClass}>Field of Study</label>
+                                    <input
+                                        className={inputClass}
+                                        placeholder="Technology Management"
+                                        value={edu.fieldOfStudy || ""}
+                                        onChange={(e) => updateEducation(index, "fieldOfStudy", e.target.value)}
+                                    />
+                                </div>
+                            </div>
+                            <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label className={labelClass}>Location</label>
+                                    <input
+                                        className={inputClass}
+                                        placeholder="Stanford, CA"
+                                        value={edu.location || ""}
+                                        onChange={(e) => updateEducation(index, "location", e.target.value)}
+                                    />
+                                </div>
+                                <div>
+                                    <label className={labelClass}>Start Date</label>
+                                    <input
+                                        className={inputClass}
+                                        placeholder="2014"
                                         value={edu.fromYear}
                                         onChange={(e) => updateEducation(index, "fromYear", e.target.value)}
                                     />
                                 </div>
+                            </div>
+                            <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className={labelClass}>To</label>
+                                    <label className={labelClass}>End Date (or leave blank if current)</label>
                                     <input
                                         className={inputClass}
-                                        placeholder="2025"
+                                        placeholder="2016"
                                         value={edu.toYear}
                                         onChange={(e) => updateEducation(index, "toYear", e.target.value)}
                                     />
                                 </div>
                                 <div>
-                                    <label className={labelClass}>CGPA</label>
+                                    <label className={labelClass}>GPA (Optional)</label>
                                     <input
                                         className={inputClass}
-                                        placeholder="8.5"
+                                        placeholder="3.8"
                                         value={edu.cgpa}
                                         onChange={(e) => updateEducation(index, "cgpa", e.target.value)}
                                     />
                                 </div>
                             </div>
+                            <RemoveButton onClick={() => removeEducation(index)} label="Remove Education" />
                         </div>
                     </div>
                 ))}
@@ -249,12 +270,9 @@ export default function ResumeForm({ resumeData, setResumeData }) {
                 {resumeData.projects.map((project, index) => (
                     <div
                         key={index}
-                        className="relative p-4 mb-3 rounded-xl bg-[var(--color-bg-light)] dark:bg-[var(--color-bg-dark)] border border-[var(--color-border-light)] dark:border-[var(--color-border-dark)] animate-slide-in"
+                        className="relative p-5 mb-4 rounded-lg bg-[var(--color-bg-light)] dark:bg-[var(--color-bg-dark)] border border-[var(--color-border-light)] dark:border-[var(--color-border-dark)] animate-slide-in"
                     >
-                        <div className="absolute top-3 right-3">
-                            <RemoveButton onClick={() => removeProject(index)} />
-                        </div>
-                        <div className="space-y-3 pr-8">
+                        <div className="space-y-4">
                             <div>
                                 <label className={labelClass}>Title</label>
                                 <input
@@ -268,7 +286,7 @@ export default function ResumeForm({ resumeData, setResumeData }) {
                                 <label className={labelClass}>Description</label>
                                 <textarea
                                     className={`${inputClass} resize-none`}
-                                    placeholder="Enter each point on a new line&#10;Built a full-stack app using React and Node.js&#10;Implemented authentication with JWT"
+                                    placeholder={"Enter each point on a new line\nBuilt a full-stack app using React and Node.js\nImplemented authentication with JWT"}
                                     value={project.description}
                                     onChange={(e) => updateProject(index, "description", e.target.value)}
                                     rows={3}
@@ -283,7 +301,7 @@ export default function ResumeForm({ resumeData, setResumeData }) {
                                     onChange={(e) => updateProject(index, "technologies", e.target.value)}
                                 />
                             </div>
-                            <div className="grid grid-cols-2 gap-3">
+                            <div className="grid grid-cols-2 gap-4">
                                 <div>
                                     <label className={labelClass}>
                                         <span className="flex items-center gap-1"><Github size={12} /> GitHub Link</span>
@@ -307,6 +325,7 @@ export default function ResumeForm({ resumeData, setResumeData }) {
                                     />
                                 </div>
                             </div>
+                            <RemoveButton onClick={() => removeProject(index)} label="Remove Project" />
                         </div>
                     </div>
                 ))}
@@ -316,7 +335,7 @@ export default function ResumeForm({ resumeData, setResumeData }) {
             {/* Skills */}
             <div className={sectionClass}>
                 <SectionHeader icon={Wrench} title="Skills" />
-                <div className="space-y-3">
+                <div className="space-y-4">
                     <div>
                         <label className={labelClass}>Programming Languages</label>
                         <input
@@ -357,14 +376,20 @@ export default function ResumeForm({ resumeData, setResumeData }) {
             <div className={sectionClass}>
                 <SectionHeader icon={Award} title="Achievements / Certifications" />
                 {resumeData.achievements.map((achievement, index) => (
-                    <div key={index} className="flex items-center gap-2 mb-2 animate-slide-in">
+                    <div key={index} className="flex items-center gap-2 mb-3 animate-slide-in">
                         <input
                             className={`${inputClass} flex-1`}
                             placeholder="Achievement or Certification"
                             value={achievement}
                             onChange={(e) => updateAchievement(index, e.target.value)}
                         />
-                        <RemoveButton onClick={() => removeAchievement(index)} />
+                        <button
+                            type="button"
+                            onClick={() => removeAchievement(index)}
+                            className="p-2 rounded-lg text-[var(--color-muted-light)] hover:text-[var(--color-danger)] hover:bg-red-50 dark:hover:bg-red-900/20 transition-all cursor-pointer"
+                        >
+                            <Trash2 size={14} />
+                        </button>
                     </div>
                 ))}
                 <AddButton onClick={addAchievement} label="Add Achievement" />

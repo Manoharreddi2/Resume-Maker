@@ -140,9 +140,10 @@ export default function ResumePreview({ resumeData, previewRef }) {
                                         .map((edu, i) => (
                                             <div key={i} style={{ marginBottom: "4px" }}>
                                                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
-                                                    <span style={{ fontWeight: 700 }}>{edu.degree}{edu.institution ? `, ${edu.institution}` : ""}</span>
+                                                    <span style={{ fontWeight: 700 }}>{edu.degree}{edu.fieldOfStudy ? ` in ${edu.fieldOfStudy}` : ""}{edu.institution ? `, ${edu.institution}` : ""}</span>
                                                     <span style={{ fontWeight: 400 }}>{edu.fromYear && edu.toYear ? `${edu.fromYear} – ${edu.toYear}` : edu.fromYear || edu.toYear || ""}</span>
                                                 </div>
+                                                {edu.location && <div style={{ fontStyle: "italic" }}>{edu.location}</div>}
                                                 {edu.cgpa && <div style={{ fontStyle: "italic" }}>Cumulative GPA: {edu.cgpa}</div>}
                                             </div>
                                         ))}

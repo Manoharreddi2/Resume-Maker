@@ -8,6 +8,7 @@ import {
   Menu,
   X,
   FileText,
+  RotateCcw,
 } from "lucide-react";
 
 const initialResumeData = {
@@ -19,7 +20,7 @@ const initialResumeData = {
     github: "",
   },
   professionalSummary: "",
-  education: [{ degree: "", institution: "", fromYear: "", toYear: "", cgpa: "" }],
+  education: [{ degree: "", fieldOfStudy: "", institution: "", location: "", fromYear: "", toYear: "", cgpa: "" }],
   projects: [{ title: "", description: "", technologies: "", githubLink: "", liveLink: "" }],
   skills: {
     programmingLanguages: "",
@@ -96,13 +97,22 @@ export default function App() {
             </div>
             <div>
               <h1 className="text-lg font-bold text-[var(--color-text-light)] dark:text-[var(--color-text-dark)] leading-tight">
-                Resume Maker
+                Resume Builder
               </h1>
             </div>
           </div>
 
           {/* Right - Actions */}
           <div className="flex items-center gap-2">
+            {/* Reset */}
+            <button
+              onClick={() => { if (window.confirm('Reset all fields? This cannot be undone.')) { setResumeData(initialResumeData); localStorage.removeItem('resumeData'); } }}
+              className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[var(--color-bg-light)] dark:bg-[var(--color-bg-dark)] border border-[var(--color-border-light)] dark:border-[var(--color-border-dark)] text-[var(--color-text-light)] dark:text-[var(--color-text-dark)] text-sm font-medium hover:shadow-md transition-all cursor-pointer"
+            >
+              <RotateCcw size={16} />
+              <span className="hidden sm:inline">Reset</span>
+            </button>
+
             {/* Download PDF */}
             <button
               onClick={handleDownloadPDF}
