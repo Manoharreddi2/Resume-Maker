@@ -1,20 +1,20 @@
 import { Plus, Trash2, GraduationCap, Briefcase, Award, Wrench, User, FileText, Github, ExternalLink } from "lucide-react";
 
 const sectionClass =
-    "bg-[#fafafa] rounded-lg border-l-4 border-l-[var(--color-primary)] border border-[var(--color-border-light)] p-6 shadow-sm";
+    "bg-white rounded-lg border-l-[3px] border-l-[#1a365d] border border-[#e2e8f0] p-6 shadow-sm";
 
 const inputClass =
-    "w-full px-3 py-2.5 rounded-lg bg-white border border-[var(--color-border-light)] text-[var(--color-text-light)] placeholder:text-[var(--color-muted-light)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent transition-all text-sm";
+    "w-full px-3 py-2.5 rounded-lg bg-white border border-[#e2e8f0] text-[#1a202c] placeholder:text-[#a0aec0] focus:outline-none focus:ring-2 focus:ring-[#1a365d] focus:border-transparent transition-all text-sm overflow-hidden text-ellipsis";
 
 const labelClass =
-    "block text-sm font-bold text-[var(--color-text-light)] mb-1.5";
+    "block text-sm font-bold text-[#1a202c] mb-1.5";
 
 const SectionHeader = ({ icon: Icon, title }) => (
     <div className="flex items-center gap-2 mb-5">
-        <div className="p-2 rounded-lg bg-[var(--color-primary)]/10">
-            <Icon size={16} className="text-[var(--color-primary)]" />
+        <div className="p-2 rounded-lg bg-[#edf2f7]">
+            <Icon size={16} className="text-[#1a365d]" />
         </div>
-        <h3 className="font-bold text-lg text-[var(--color-text-light)]">
+        <h3 className="font-bold text-lg text-[#1a202c]">
             {title}
         </h3>
     </div>
@@ -24,7 +24,7 @@ const AddButton = ({ onClick, label }) => (
     <button
         type="button"
         onClick={onClick}
-        className="flex items-center gap-1.5 text-sm text-[var(--color-primary)] font-semibold hover:opacity-70 transition-all mt-4 cursor-pointer"
+        className="flex items-center gap-1.5 text-sm text-[#1a365d] font-semibold hover:opacity-70 transition-all mt-4 cursor-pointer"
     >
         <Plus size={16} />
         {label}
@@ -185,7 +185,7 @@ export default function ResumeForm({ resumeData, setResumeData }) {
                 {resumeData.education.map((edu, index) => (
                     <div
                         key={index}
-                        className="relative p-5 mb-4 rounded-lg bg-white border border-[var(--color-border-light)] animate-slide-in"
+                        className="relative p-5 mb-4 rounded-lg bg-white border border-[#e2e8f0] animate-slide-in"
                     >
                         <div className="space-y-4">
                             <div>
@@ -386,7 +386,7 @@ export default function ResumeForm({ resumeData, setResumeData }) {
                         <button
                             type="button"
                             onClick={() => removeAchievement(index)}
-                            className="p-2 rounded-lg text-[var(--color-muted-light)] hover:text-[var(--color-danger)] hover:bg-red-50 transition-all cursor-pointer"
+                            className="p-2 rounded-lg text-[#a0aec0] hover:text-[#e53e3e] hover:bg-red-50 transition-all cursor-pointer"
                         >
                             <Trash2 size={14} />
                         </button>
