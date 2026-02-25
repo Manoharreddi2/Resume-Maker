@@ -86,7 +86,7 @@ export default function App() {
 
   // Main App
   return (
-    <div className={`min-h-screen bg-[var(--color-bg-light)] dark:bg-[var(--color-bg-dark)] transition-colors duration-300 ${darkMode ? "dark" : ""}`}>
+    <div className={`min-h-screen bg-white dark:bg-[var(--color-bg-dark)] transition-colors duration-300 ${darkMode ? "dark" : ""}`}>
       {/* Top Navbar */}
       <nav className="sticky top-0 z-40 bg-[var(--color-surface-light)]/80 dark:bg-[var(--color-surface-dark)]/80 backdrop-blur-xl border-b border-[var(--color-border-light)] dark:border-[var(--color-border-dark)]">
         <div className="max-w-[1800px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
@@ -144,7 +144,7 @@ export default function App() {
       {/* Main Content - Split Layout */}
       <div className="max-w-[1800px] mx-auto flex flex-col lg:flex-row">
         {/* Left Panel - Form */}
-        <div className={`w-full lg:w-1/2 p-4 sm:p-6 overflow-y-auto ${mobilePreview ? "hidden lg:block" : ""}`}
+        <div className={`w-full lg:w-1/2 p-4 sm:p-6 overflow-y-auto bg-white dark:bg-[var(--color-surface-dark)] ${mobilePreview ? "hidden lg:block" : ""}`}
           style={{ maxHeight: "calc(100vh - 64px)" }}
         >
           <ResumeForm resumeData={resumeData} setResumeData={setResumeData} />
