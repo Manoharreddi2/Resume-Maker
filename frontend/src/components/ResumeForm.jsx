@@ -185,7 +185,7 @@ export default function ResumeForm({ resumeData, setResumeData }) {
                 {resumeData.education.map((edu, index) => (
                     <div
                         key={index}
-                        className="relative p-5 mb-4 rounded-lg bg-[var(--color-bg-light)] dark:bg-[var(--color-bg-dark)] border border-[var(--color-border-light)] dark:border-[var(--color-border-dark)] animate-slide-in"
+                        className="relative p-5 mb-4 rounded-lg bg-white border border-[var(--color-border-light)] animate-slide-in"
                     >
                         <div className="space-y-4">
                             <div>
@@ -270,7 +270,7 @@ export default function ResumeForm({ resumeData, setResumeData }) {
                 {resumeData.projects.map((project, index) => (
                     <div
                         key={index}
-                        className="relative p-5 mb-4 rounded-lg bg-[var(--color-bg-light)] dark:bg-[var(--color-bg-dark)] border border-[var(--color-border-light)] dark:border-[var(--color-border-dark)] animate-slide-in"
+                        className="relative p-5 mb-4 rounded-lg bg-white border border-[var(--color-border-light)] animate-slide-in"
                     >
                         <div className="space-y-4">
                             <div>
@@ -386,7 +386,7 @@ export default function ResumeForm({ resumeData, setResumeData }) {
                         <button
                             type="button"
                             onClick={() => removeAchievement(index)}
-                            className="p-2 rounded-lg text-[var(--color-muted-light)] hover:text-[var(--color-danger)] hover:bg-red-50 dark:hover:bg-red-900/20 transition-all cursor-pointer"
+                            className="p-2 rounded-lg text-[var(--color-muted-light)] hover:text-[var(--color-danger)] hover:bg-red-50 transition-all cursor-pointer"
                         >
                             <Trash2 size={14} />
                         </button>
