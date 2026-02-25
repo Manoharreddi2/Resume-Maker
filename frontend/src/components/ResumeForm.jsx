@@ -1,20 +1,20 @@
 import { Plus, Trash2, GraduationCap, Briefcase, Award, Wrench, User, FileText, Github, ExternalLink } from "lucide-react";
 
 const sectionClass =
-    "bg-[#fafafa] dark:bg-[var(--color-surface-dark)] rounded-lg border-l-4 border-l-[var(--color-primary)] border border-[var(--color-border-light)] dark:border-[var(--color-border-dark)] p-6 shadow-sm";
+    "bg-[#fafafa] rounded-lg border-l-4 border-l-[var(--color-primary)] border border-[var(--color-border-light)] p-6 shadow-sm";
 
 const inputClass =
-    "w-full px-3 py-2.5 rounded-lg bg-white dark:bg-[var(--color-bg-dark)] border border-[var(--color-border-light)] dark:border-[var(--color-border-dark)] text-[var(--color-text-light)] dark:text-[var(--color-text-dark)] placeholder:text-[var(--color-muted-light)] dark:placeholder:text-[var(--color-muted-dark)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent transition-all text-sm";
+    "w-full px-3 py-2.5 rounded-lg bg-white border border-[var(--color-border-light)] text-[var(--color-text-light)] placeholder:text-[var(--color-muted-light)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent transition-all text-sm";
 
 const labelClass =
-    "block text-sm font-bold text-[var(--color-text-light)] dark:text-[var(--color-text-dark)] mb-1.5";
+    "block text-sm font-bold text-[var(--color-text-light)] mb-1.5";
 
 const SectionHeader = ({ icon: Icon, title }) => (
     <div className="flex items-center gap-2 mb-5">
         <div className="p-2 rounded-lg bg-[var(--color-primary)]/10">
             <Icon size={16} className="text-[var(--color-primary)]" />
         </div>
-        <h3 className="font-bold text-lg text-[var(--color-text-light)] dark:text-[var(--color-text-dark)]">
+        <h3 className="font-bold text-lg text-[var(--color-text-light)]">
             {title}
         </h3>
     </div>
@@ -35,7 +35,7 @@ const RemoveButton = ({ onClick, label }) => (
     <button
         type="button"
         onClick={onClick}
-        className="flex items-center gap-1.5 text-sm text-[var(--color-danger)] font-medium hover:opacity-70 transition-all mt-3 cursor-pointer px-3 py-1.5 rounded-full border border-[var(--color-danger)]/30 hover:bg-red-50 dark:hover:bg-red-900/20"
+        className="flex items-center gap-1.5 text-sm text-[var(--color-danger)] font-medium hover:opacity-70 transition-all mt-3 cursor-pointer px-3 py-1.5 rounded-full border border-[var(--color-danger)]/30 hover:bg-red-50"
     >
         <Trash2 size={14} />
         {label}

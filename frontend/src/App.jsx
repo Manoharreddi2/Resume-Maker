@@ -143,11 +143,13 @@ export default function App() {
 
       {/* Main Content - Split Layout */}
       <div className="max-w-[1800px] mx-auto flex flex-col lg:flex-row">
-        {/* Left Panel - Form */}
-        <div className={`w-full lg:w-1/2 p-4 sm:p-6 overflow-y-auto bg-white dark:bg-[var(--color-surface-dark)] ${mobilePreview ? "hidden lg:block" : ""}`}
-          style={{ maxHeight: "calc(100vh - 64px)" }}
+        {/* Left Panel - Form (always light theme) */}
+        <div className={`w-full lg:w-1/2 overflow-y-auto ${mobilePreview ? "hidden lg:block" : ""}`}
+          style={{ maxHeight: "calc(100vh - 64px)", background: "#ffffff" }}
         >
-          <ResumeForm resumeData={resumeData} setResumeData={setResumeData} />
+          <div className="p-4 sm:p-6 light-panel">
+            <ResumeForm resumeData={resumeData} setResumeData={setResumeData} />
+          </div>
         </div>
 
         {/* Right Panel - Preview */}
