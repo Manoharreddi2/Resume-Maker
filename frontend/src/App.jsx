@@ -147,7 +147,7 @@ export default function App() {
         <div className={`w-full lg:w-1/2 overflow-y-auto overflow-x-hidden ${mobilePreview ? "hidden lg:block" : ""}`}
           style={{ maxHeight: "calc(100vh - 64px)", background: "#ffffff", scrollbarGutter: "stable" }}
         >
-          <div className="p-6 sm:p-8 pr-8 sm:pr-10 light-panel">
+          <div className="px-8 sm:px-12 py-6 sm:py-8 light-panel">
             <ResumeForm resumeData={resumeData} setResumeData={setResumeData} />
           </div>
         </div>
