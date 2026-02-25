@@ -144,10 +144,10 @@ export default function App() {
       {/* Main Content - Split Layout */}
       <div className="max-w-[1800px] mx-auto flex flex-col lg:flex-row">
         {/* Left Panel - Form (always light theme) */}
-        <div className={`w-full lg:w-1/2 overflow-y-auto ${mobilePreview ? "hidden lg:block" : ""}`}
-          style={{ maxHeight: "calc(100vh - 64px)", background: "#ffffff" }}
+        <div className={`w-full lg:w-1/2 overflow-y-auto overflow-x-hidden ${mobilePreview ? "hidden lg:block" : ""}`}
+          style={{ maxHeight: "calc(100vh - 64px)", background: "#ffffff", scrollbarGutter: "stable" }}
         >
-          <div className="p-6 sm:p-8 light-panel">
+          <div className="p-6 sm:p-8 pr-8 sm:pr-10 light-panel">
             <ResumeForm resumeData={resumeData} setResumeData={setResumeData} />
           </div>
         </div>
